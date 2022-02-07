@@ -41,12 +41,11 @@ app.listen(PORT, () => {
 
 app.get('/info', (req, res) => {
 
-  let numPersons = 0
   Person.find({}).then(persons => {
-    numPersons = persons.length
+    console.log(persons.length)
+    res.send(`<p>Phonebook has info for ${persons.length} persons</p><p>${new Date()}</p>`)
   })
-
-  res.send(`<p>Phonebook has info for ${numPersons} persons</p><p>${new Date()}</p>`)
+  
 
 })
 
