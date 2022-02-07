@@ -1,2 +1,7 @@
 node_modules
 .env
+..env.un~
+..gitignore.un~
+.eslintignore
+.eslintrc.js
+.gitignore~

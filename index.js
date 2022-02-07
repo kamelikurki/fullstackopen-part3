@@ -1,7 +1,7 @@
 const express = require('express')
 require('dotenv').config()
 const morgan = require('morgan')
-const { use } = require('express/lib/application')
+//const { use } = require('express/lib/application')
 const app = express()
 const cors = require('cors')
 
@@ -40,7 +40,13 @@ app.listen(PORT, () => {
 })
 
 app.get('/info', (req, res) => {
-  res.send(`<p>Phonebook has info for ${persons.length} persons</p><p>${new Date()}</p>`);
+
+  let numPersons = 0
+  Person.find({}).then(persons => {
+    numPersons = persons.length
+  })
+
+  res.send(`<p>Phonebook has info for ${numPersons} persons</p><p>${new Date()}</p>`)
 
 })
 
@@ -55,7 +61,7 @@ app.delete('/api/persons/:id', (request, response) => {
 app.delete('/api/persons/:id', (request, response, next) => {
   const id = request.params.id
   Person.findByIdAndRemove(id)
-    .then(result => {
+    .then( () => {
       response.status(204).end()
     })
     .catch(error => next(error))
@@ -65,7 +71,7 @@ app.delete('/api/persons/:id', (request, response, next) => {
 app.get('/api/persons/:id', (request, response, next) => {
   const id = request.params.id
   Person.findById(id)
-  .then(person => { 
+    .then(person => { 
       const personreturn = {
         name: person.Name,
         number: person.Number,
@@ -77,7 +83,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 })
 
 app.post('/api/persons', (request, response, next) => {
-  const newID = Math.floor(Math.random() * 10000)
+
   const person = request.body
 
   if (!(person.name && person.number)) {

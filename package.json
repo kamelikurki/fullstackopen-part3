@@ -7,10 +7,11 @@
     "dev": "nodemon index.js",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:ui": "del build /f /s && cd ../fullstackopen/osa2/phonebook/ && npm run build && xcopy /e .\\build ..\\..\\..\\fullstackopen-part3\\build",
-    "deploy": "git push heroku main",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",    
-    "logs:prod": "heroku logs --tail"
+    "build:ui": "del build /f /s && cd ..\\fullstackopen\\osa2\\phonebook\\ && npm run build && xcopy /e .\\build ..\\..\\..\\fullstackopen-part3\\build",
+    "deploy": "git push heroku master",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
+    "logs:prod": "heroku logs --tail",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "notenv": "^2.0.3"
   },
   "devDependencies": {
+    "eslint": "^8.8.0",
     "nodemon": "^2.0.15"
   }
 }
